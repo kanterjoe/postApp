@@ -29,12 +29,23 @@ app.post('/texts', (req, res) => {
 
 
 })
+app.get('/', (req,res)=>{
+     res.sendFile('./index.html', { root: __dirname });
+})
 app.get('/texts', (req,res)=>{
     console.log(texts);
     let ps = texts.map(i=>`<p>${i}</p><hr>`)
-    res.send(ps.reduce ((acc, item) =>{
+
+    let textText = ps.reduce ((acc, item) =>{
         return `${acc} ${item}`
-    },'')); 
+    },'')
+
+
+
+
+    res.send(`<h1>Texts from the class:</h2>
+        ${textText}
+        `); 
 })
 
 app.listen(PORT, () => console.log('Example app listening on port 3000!'))
