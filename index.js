@@ -48,7 +48,7 @@ app.get('/texts', (req,res)=>{
 
     res.send(`<h1>Texts from the class:</h2>
         ${textText}
-        <script> let windowReloader  = () => { setInterval(() => {location.reload(); },3000 )};windowReloader()</script>`); 
+        <script> let windowReloader  = () => { setInterval(() => {location.reload(); },1500 )};windowReloader()</script>`); 
         });
 app.delete('/texts/:id', (req,res)=> {
     if (req.params.id ) {
@@ -67,7 +67,7 @@ app.put('/texts/:id', (req,res)=> {
     }
     else if (texts.filter(textsIndexes => textsIndexes === req.params.id) ) {
         texts.splice(req.params.id, 1, updatedText);
-        res.direct('/texts', 200);
+        res.json({ success: "Update Success!"})
     } else {
         res.send(400)
     }
