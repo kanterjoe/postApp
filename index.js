@@ -57,5 +57,22 @@ app.delete('/texts/:id', (req,res)=> {
     }
   
 })
-
+app.put('/texts/:id', (req,res)=> {
+    console.log(req.params.id)
+   
+    let updatedText = req.body.text
+    if (updatedText === "") {
+        res.json({ stringRequired: "Text field required"})
+    }
+    else if (texts.filter(textsIndexes => textsIndexes === req.params.id) ) {
+        texts.splice(req.params.id, 1, updatedText);
+        console.log(texts);
+        res.json({ sucess: "Update Successful!"})
+    
+    } else {
+        res.send(400)
+    }
+   
+  
+})
 app.listen(PORT, () => console.log('Example app listening on port 3000!'))
