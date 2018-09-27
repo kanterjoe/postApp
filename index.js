@@ -33,9 +33,9 @@ app.get('/', (req,res)=>{
      res.sendFile('./index.html', { root: __dirname });
 })
 app.get('/texts', (req,res)=>{
-    console.log(texts);
-    let ps = texts.map(i=>`<p>${i}</p><hr>`)
-
+      
+    let ps = texts.map((i,indexValue,texts) =>`<p>${indexValue}.` + `${i}</p><hr>`);
+   
     let textText = ps.reduce ((acc, item) =>{
         return `${item} ${acc} `
     },'')
@@ -51,9 +51,11 @@ app.delete('/texts/:id', (req,res)=> {
     if (req.params.id ) {
         texts.splice(req.params.id, 1);
 
-        res.send("deleted " + req.params.id);
+        res.json("Success! Post #" + req.params.id + " was deleted!");
+    } else {
+        res.send(400)
     }
-    res.send(400)
+  
 })
 
 app.listen(PORT, () => console.log('Example app listening on port 3000!'))
