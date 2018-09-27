@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 var PORT = process.env.PORT || 3000;
 
+
+
+
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use( bodyParser.urlencoded({ extended: false }))
@@ -45,8 +48,8 @@ app.get('/texts', (req,res)=>{
 
     res.send(`<h1>Texts from the class:</h2>
         ${textText}
-        `); 
-});
+        <script> let windowReloader  = () => { setInterval(() => {location.reload(); },3000 )};windowReloader()</script>`); 
+        });
 app.delete('/texts/:id', (req,res)=> {
     if (req.params.id ) {
         texts.splice(req.params.id, 1);
@@ -64,8 +67,7 @@ app.put('/texts/:id', (req,res)=> {
     }
     else if (texts.filter(textsIndexes => textsIndexes === req.params.id) ) {
         texts.splice(req.params.id, 1, updatedText);
-        res.json({ sucess: "Update Successful!"})
-    
+        res.direct('/texts', 200);
     } else {
         res.send(400)
     }
