@@ -37,7 +37,7 @@ app.get('/texts', (req,res)=>{
     let ps = texts.map(i=>`<p>${i}</p><hr>`)
 
     let textText = ps.reduce ((acc, item) =>{
-        return `${acc} ${item}`
+        return `${item} ${acc} `
     },'')
 
 
@@ -46,6 +46,14 @@ app.get('/texts', (req,res)=>{
     res.send(`<h1>Texts from the class:</h2>
         ${textText}
         `); 
+});
+app.delete('/texts/:id', (req,res)=> {
+    if (req.params.id ) {
+        texts.splice(req.params.id, 1);
+
+        res.send("deleted " + req.params.id);
+    }
+    res.send(400)
 })
 
 app.listen(PORT, () => console.log('Example app listening on port 3000!'))
